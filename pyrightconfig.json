@@ -1,0 +1,9 @@
+{
+  "venvPath": "C:/Users/ABC/Downloads/autonomous-digital-employee",
+  "venv": ".venv",
+  "pythonVersion": "3.12",
+  "extraPaths": ["."],
+  "typeCheckingMode": "basic",
+  "reportMissingImports": false,
+  "reportMissingModuleSource": false
+}

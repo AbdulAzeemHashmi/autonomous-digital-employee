@@ -6,7 +6,6 @@ os.environ["OPENAI_API_KEY"] = "mock_key"
 os.environ["SUPABASE_URL"] = "mock"
 os.environ["SUPABASE_ANON_KEY"] = "mock"
 
-import pytest  # noqa: E402
 from fastapi.testclient import TestClient  # noqa: E402
 from api.agent import run_digital_employee  # noqa: E402
 from api.index import app  # noqa: E402
