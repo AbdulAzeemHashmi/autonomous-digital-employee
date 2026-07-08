@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, type ChangeEvent } from 'react';
 
 export default function Home() {
   const [input, setInput] = useState('');
@@ -33,7 +33,7 @@ export default function Home() {
           rows={3}
           placeholder="Give your agent a manual task..."
           value={input}
-          onChange={(e) => setInput(e.target.value)}
+          onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setInput(e.target.value)}
         />
         <button onClick={handleDelegate} disabled={loading} className="w-full mt-3 bg-indigo-600 hover:bg-indigo-500 py-2 rounded-lg font-semibold">
           {loading ? 'Agent is executing...' : 'Delegate Task'}
