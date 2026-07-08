@@ -39,4 +39,4 @@ def run_digital_employee(user_prompt: str) -> str:
 
     chain = prompt | llm
     result = chain.invoke({"input": user_prompt})
-    return result.content
+    return str(result.content)
