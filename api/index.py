@@ -1,6 +1,10 @@
 import os
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from typing import TYPE_CHECKING, Optional
+
+if TYPE_CHECKING:
+    from supabase import Client
 from pydantic import BaseModel
 
 # Support both relative import (package mode / pytest) and direct import (Vercel serverless)
@@ -10,9 +14,10 @@ except ImportError:
     from agent import run_digital_employee  # type: ignore[no-redef]
 
 try:
-    from supabase import create_client, Client
+    from supabase import create_client
     _supabase_available = True
 except ImportError:
+    create_client = None  # type: ignore[assignment]
     _supabase_available = False
 
 app = FastAPI(title="Autonomous Digital Employee API")
@@ -29,10 +34,9 @@ app.add_middleware(
 supabase_url = os.getenv("SUPABASE_URL")
 supabase_key = os.getenv("SUPABASE_ANON_KEY")
 
-if _supabase_available and supabase_url and supabase_key and supabase_url != "mock":
-    supabase: "Client | None" = create_client(supabase_url, supabase_key)
-else:
-    supabase = None
+supabase: Optional["Client"] = None
+if _supabase_available and create_client and supabase_url and supabase_key and supabase_url != "mock":
+    supabase = create_client(supabase_url, supabase_key)
 
 
 class TaskRequest(BaseModel):
@@ -53,7 +57,8 @@ def process_task(data: TaskRequest):
             db_res = supabase.table("agent_tasks").insert(
                 {"user_input": data.user_input, "status": "processing"}
             ).execute()
-            task_id = db_res.data[0]["id"]
+            first_row = db_res.data[0] if db_res.data else {}
+            task_id = first_row["id"] if isinstance(first_row, dict) else None
 
         ai_output = run_digital_employee(data.user_input)
 
