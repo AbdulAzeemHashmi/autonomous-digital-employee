@@ -64,4 +64,4 @@ def test_health_endpoint():
     body = response.json()
     assert body["status"] == "ok"
     # With mock env, supabase_connected should be False
-    assert body["supabase_connected"] is False
+    assert body["supabase_connected"] is False  # Force linter refresh
