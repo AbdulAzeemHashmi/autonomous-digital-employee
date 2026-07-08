@@ -5,8 +5,5 @@
   "python.analysis.venvPath": "C:/Users/ABC/Downloads/autonomous-digital-employee",
   "python.analysis.venv": ".venv",
   "pyrefly.pythonInterpreter": "C:/Users/ABC/Downloads/autonomous-digital-employee/.venv/Scripts/python.exe",
-  "editor.formatOnSave": true,
-  "[python]": {
-    "editor.defaultFormatter": "ms-python.black-formatter"
-  }
+  "editor.formatOnSave": true
 }
