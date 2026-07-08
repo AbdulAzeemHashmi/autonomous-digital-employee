@@ -1,7 +1,15 @@
 import os
+from pathlib import Path
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from typing import TYPE_CHECKING, Optional
+
+try:
+    from dotenv import load_dotenv
+    _root = Path(__file__).resolve().parent.parent
+    load_dotenv(_root / ".env", override=True)
+except ImportError:
+    pass
 
 if TYPE_CHECKING:
     from supabase import Client

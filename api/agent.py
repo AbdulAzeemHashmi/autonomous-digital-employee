@@ -1,5 +1,14 @@
 import os
+from pathlib import Path
 from langchain_core.prompts import ChatPromptTemplate
+
+# Load .env from project root (works both locally and in Vercel where it's a no-op)
+try:
+    from dotenv import load_dotenv
+    _root = Path(__file__).resolve().parent.parent
+    load_dotenv(_root / ".env", override=True)
+except ImportError:
+    pass  # python-dotenv not installed; rely on system env vars
 
 
 def run_digital_employee(user_prompt: str) -> str:
@@ -11,11 +20,20 @@ def run_digital_employee(user_prompt: str) -> str:
     gemini_key = os.getenv("GEMINI_API_KEY")
     openai_key = os.getenv("OPENAI_API_KEY")
 
+    print(f"[Agent Debug] GEMINI_API_KEY loaded: {bool(gemini_key)} (length: {len(gemini_key) if gemini_key else 0})")
+    print(f"[Agent Debug] OPENAI_API_KEY loaded: {bool(openai_key)} (length: {len(openai_key) if openai_key else 0})")
+
     has_gemini = gemini_key and gemini_key != "mock_key"
     has_openai = openai_key and openai_key != "mock_key"
 
     if not has_gemini and not has_openai:
-        return f"[Mock Agent Output] Successfully processed: {user_prompt}"
+        return (
+            "⚠️ No AI API key configured.\n\n"
+            "To enable real AI responses, add a valid API key to your .env file:\n"
+            "  • GEMINI_API_KEY=AIza... (Google Gemini)\n"
+            "  • OPENAI_API_KEY=sk-... (OpenAI)\n\n"
+            f"Your task was received: \"{user_prompt[:80]}{'...' if len(user_prompt) > 80 else ''}\""
+        )
 
     # Setup the prompt
     prompt = ChatPromptTemplate.from_messages([
