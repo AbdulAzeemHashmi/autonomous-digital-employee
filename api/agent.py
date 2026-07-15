@@ -49,7 +49,7 @@ def run_digital_employee(user_prompt: str) -> str:
     if has_gemini:
         from langchain_google_genai import ChatGoogleGenerativeAI
 
-        llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash", google_api_key=gemini_key)
+        llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", google_api_key=gemini_key)
     else:
         from langchain_openai import ChatOpenAI
 
