@@ -62,7 +62,7 @@ Neither key found     -->  Return mock response (safe local dev mode)
 |-------|-----------|
 | 🖥️ Frontend | Next.js 16 (App Router), TypeScript, Tailwind CSS v4 |
 | ⚙️ Backend | Python 3.12, FastAPI, LangChain, LangChain-Google-GenAI |
-| 🤖 AI Models | Google Gemini 1.5 Flash (primary), OpenAI GPT-4o-mini (fallback) |
+| 🤖 AI Models | Google Gemini 2.5 Flash (primary), OpenAI GPT-4o-mini (fallback) |
 | 🗄️ Database | Supabase (PostgreSQL) |
 | 🚀 Deployment | Vercel (serverless functions) |
 | 🧪 Testing | pytest 9.1, FastAPI TestClient |
