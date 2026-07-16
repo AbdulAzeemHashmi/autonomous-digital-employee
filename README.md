@@ -36,7 +36,7 @@
 The agent uses a smart fallback resolution chain:
 
 ```
-Gemini API Key found  -->  Use Google Gemini (gemini-1.5-flash)
+Gemini API Key found  -->  Use Google Gemini (gemini-2.5-flash)
 OpenAI API Key found  -->  Use OpenAI GPT-4o-mini
 Neither key found     -->  Return mock response (safe local dev mode)
 ```
